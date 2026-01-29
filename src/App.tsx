@@ -1,9 +1,7 @@
-import React, { useState, type ChangeEvent } from 'react'
 import { useTasks } from './useTasks'
 
 export function App() {
-  const { tasks, newTask, handleInputChange, addTask, deleteTask, markDone, markUnDone } =
-    useTasks()
+  const { tasks, addTask, deleteTask, markDone, markUnDone } = useTasks()
 
   return (
     <article>
@@ -11,9 +9,8 @@ export function App() {
         <h1>ToDo</h1>
         <form onSubmit={addTask}>
           <input
+            name="task"
             placeholder="Enter task"
-            value={newTask}
-            onChange={handleInputChange}
             required
             autoFocus
           />

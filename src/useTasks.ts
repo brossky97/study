@@ -1,4 +1,4 @@
-import React, { useState, type ChangeEvent } from 'react'
+import React, { useState } from 'react'
 
 type Task = {
   id: string
@@ -9,17 +9,13 @@ const initialTask: Task[] = []
 
 export function useTasks() {
   const [tasks, setTasks] = useState(initialTask)
-  const [newTask, setNewTask] = useState<string>('')
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewTask(e.target.value)
-  }
   const addTask = (e: React.FormEvent<HTMLFormElement>) => {
-    if (newTask.trim() !== '') {
-      setTasks((t) => [...t, { id: self.crypto.randomUUID(), text: newTask }])
-      setNewTask('')
-      e.preventDefault()
-    }
+    e.preventDefault()
+    const form = e.target as HTMLFormElement
+    const input = form.task as HTMLInputElement
+    setTasks([...tasks, { id: self.crypto.randomUUID(), text: input.value }])
+    input.value = ''
   }
   const deleteTask = (id: string) => {
     const updatedTask = tasks.filter((task) => task.id !== id)
@@ -32,5 +28,5 @@ export function useTasks() {
     setTasks(tasks.map((task) => (task.id === id ? { ...task, status: 'undone' } : task)))
   }
 
-  return { tasks, newTask, handleInputChange, addTask, deleteTask, markDone, markUnDone }
+  return { tasks, addTask, deleteTask, markDone, markUnDone }
 }
