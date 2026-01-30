@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 
 type Task = {
   id: string
-  text: string
+  title: string
+  description: string
   status?: 'done' | 'undone'
 }
 const initialTask: Task[] = []
@@ -14,8 +15,13 @@ export function useTasks() {
     e.preventDefault()
     const form = e.target as HTMLFormElement
     const input = form.task as HTMLInputElement
-    setTasks([...tasks, { id: self.crypto.randomUUID(), text: input.value }])
+    const area = form.descriptionTask as HTMLTextAreaElement
+    setTasks([
+      ...tasks,
+      { id: self.crypto.randomUUID(), title: input.value, description: area.value },
+    ])
     input.value = ''
+    area.value = ''
   }
   const deleteTask = (id: string) => {
     const updatedTask = tasks.filter((task) => task.id !== id)

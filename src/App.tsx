@@ -4,16 +4,24 @@ export function App() {
   const { tasks, addTask, deleteTask, markDone, markUnDone } = useTasks()
 
   return (
-    <article>
-      <header>
+    <article className="article">
+      <header className="header">
         <h1>ToDo</h1>
-        <form onSubmit={addTask}>
+        <form
+          onSubmit={addTask}
+          className="form"
+        >
           <input
             name="task"
             placeholder="Enter task"
             required
             autoFocus
           />
+          <textarea
+            placeholder="Enter description"
+            name="descriptionTask"
+            required
+          ></textarea>
           <button>Add</button>
         </form>
       </header>
@@ -25,10 +33,13 @@ export function App() {
               color: task.status === 'done' ? 'green' : task.status === 'undone' ? 'red' : 'white',
             }}
           >
-            <span>{task.text}</span>
-            <button onClick={() => deleteTask(task.id)}>🗑️</button>
-            <button onClick={() => markDone(task.id)}>✔️</button>
-            <button onClick={() => markUnDone(task.id)}>❌</button>
+            <div className="content">
+              <span>{task.title}</span>
+              <button onClick={() => deleteTask(task.id)}>🗑️</button>
+              <button onClick={() => markDone(task.id)}>✔️</button>
+              <button onClick={() => markUnDone(task.id)}>❌</button>
+              <p>{task.description}</p>
+            </div>
           </li>
         ))}
       </ol>
