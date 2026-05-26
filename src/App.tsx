@@ -1,21 +1,22 @@
-import List from './ListItems'
-import Form from './FormList'
-import useTasks from './useTaks'
+import List from './List'
+import Form from './Form'
+import useTaks from './useTaks'
 
 export default function App() {
-  const { addTask, form, area, input, cantSubmit, tasks, deleteTask, toggleTask } = useTasks()
+  const { tasks, form, setForm, addTask, deleteTask, toggleTask, setFilter, visibleTasks } =
+    useTaks()
+
   return (
     <div>
       <h1>ToDo</h1>
       <Form
-        addTask={addTask}
         form={form}
-        area={area}
-        input={input}
-        cantSubmit={cantSubmit}
+        setForm={setForm}
+        addTask={addTask}
+        setFilter={setFilter}
       />
       <List
-        tasks={tasks}
+        tasks={visibleTasks}
         deleteTask={deleteTask}
         toggleTask={toggleTask}
       />

@@ -7,24 +7,28 @@ type Task = {
   status: 'done' | 'undone'
 }
 
-export default function useTasks() {
-  const [form, setForm] = useState({ title: '', description: '' })
-  const input = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setForm({ ...form, title: e.target.value })
-  const area = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
-    setForm({ ...form, description: e.target.value })
-  const cantSubmit = form.title.trim() === ''
-  //
+export default function UseTaks() {
   const [tasks, setTasks] = useState<Task[]>([])
+  const [form, setForm] = useState({ title: '', description: '' })
+  const [filters, setFilter] = useState<'all' | 'done' | 'active'>('all')
+  let visibleTasks
+  if (filters === 'done') {
+    visibleTasks = tasks.filter((task) => task.status === 'done')
+  } else if (filters === 'active') {
+    visibleTasks = tasks.filter((task) => task.status === 'undone')
+  } else {
+    visibleTasks = tasks
+  }
   const addTask = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (form.title.trim() === '') return
     const newTask: Task = {
       title: form.title,
       description: form.description,
       id: crypto.randomUUID(),
       status: 'undone',
     }
-    setTasks((prev) => [...prev, newTask])
+    setTasks([...tasks, newTask])
     setForm({ title: '', description: '' })
   }
   const deleteTask = (id: string) => {
@@ -38,5 +42,15 @@ export default function useTasks() {
       ),
     )
   }
-  return { tasks, addTask, deleteTask, toggleTask, input, area, cantSubmit, form }
+  return {
+    tasks,
+    setTasks,
+    form,
+    setForm,
+    addTask,
+    deleteTask,
+    toggleTask,
+    setFilter,
+    visibleTasks,
+  }
 }

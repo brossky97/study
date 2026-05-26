@@ -6,10 +6,11 @@ export default function List({ tasks, deleteTask, toggleTask }) {
           key={task.id}
           style={{ color: task.status === 'done' ? 'green' : 'red' }}
         >
-          {task.title} {}
+          {task.title}
+          {'  '}
           {task.description}
           <button onClick={() => deleteTask(task.id)}>Delete</button>
-          <button onClick={() => toggleTask(task.id)}>Status</button>
+          <button onClick={() => toggleTask(task.id)}>Toggle</button>
         </li>
       ))}
     </ul>
