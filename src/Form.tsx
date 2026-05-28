@@ -1,17 +1,24 @@
 import type { ChangeEvent } from 'react'
+import useTaks from './useTaks'
 
-export default function Form({ addTask, form, setForm, setFilter }) {
+export default function Form({ addTask, form, setForm, setFilter, filter }) {
   const input = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, title: e.target.value })
   }
   const area = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setForm({ ...form, description: e.target.value })
   }
+  const filterButtons = ['all', 'done', 'active']
   return (
     <div>
-      <button onClick={() => setFilter('all')}>All</button>
-      <button onClick={() => setFilter('done')}>Done</button>
-      <button onClick={() => setFilter('active')}>Active</button>
+      {filterButtons.map((item) => (
+        <button
+          style={{ background: filter === item ? 'green' : 'grey' }}
+          onClick={() => setFilter(item)}
+        >
+          {item}
+        </button>
+      ))}
       <form onSubmit={addTask}>
         <input
           value={form.title}

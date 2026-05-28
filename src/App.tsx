@@ -3,13 +3,14 @@ import Form from './Form'
 import useTaks from './useTaks'
 
 export default function App() {
-  const { tasks, form, setForm, addTask, deleteTask, toggleTask, setFilter, visibleTasks } =
+  const { form, setForm, addTask, deleteTask, toggleTask, setFilter, visibleTasks, filter } =
     useTaks()
 
   return (
     <div>
       <h1>ToDo</h1>
       <Form
+        filter={filter}
         form={form}
         setForm={setForm}
         addTask={addTask}

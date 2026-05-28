@@ -10,11 +10,11 @@ type Task = {
 export default function UseTaks() {
   const [tasks, setTasks] = useState<Task[]>([])
   const [form, setForm] = useState({ title: '', description: '' })
-  const [filters, setFilter] = useState<'all' | 'done' | 'active'>('all')
+  const [filter, setFilter] = useState<'all' | 'done' | 'active'>('all')
   let visibleTasks
-  if (filters === 'done') {
+  if (filter === 'done') {
     visibleTasks = tasks.filter((task) => task.status === 'done')
-  } else if (filters === 'active') {
+  } else if (filter === 'active') {
     visibleTasks = tasks.filter((task) => task.status === 'undone')
   } else {
     visibleTasks = tasks
@@ -43,8 +43,7 @@ export default function UseTaks() {
     )
   }
   return {
-    tasks,
-    setTasks,
+    filter,
     form,
     setForm,
     addTask,
