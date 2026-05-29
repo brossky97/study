@@ -21,7 +21,7 @@ const STATUS_FILTER_BUTTONS = [
 
 export function Filters() {
   const { tasks, setFilteredTasks } = useTasks()
-  const { filters, setFilters } = useFilters({ tasks, setFilteredTasks })
+  const { filters, setFilters, onStatusChange } = useFilters({ tasks, setFilteredTasks })
 
   const handleStatusFilterClick = (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -29,6 +29,7 @@ export function Filters() {
   ) => {
     e.preventDefault()
     setFilters({ status: button })
+    onStatusChange(button)
   }
 
   return (

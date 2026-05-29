@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import type { Filters, Task } from './types'
 
 const DEFAULT_FILTERS = {
@@ -14,15 +14,16 @@ export function useFilters({
 }) {
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS)
 
-  useEffect(() => {
-    if (filters.status) {
-      const filtered = tasks.filter((task) => task.status === filters.status)
+  const onStatusChange = (newStatus: Filters['status']) => {
+    if (newStatus) {
+      const filtered = tasks.filter((task) => task.status === newStatus)
       setFilteredTasks(filtered)
     } else setFilteredTasks(tasks)
-  }, [filters, tasks, setFilteredTasks])
+  }
 
   return {
     filters,
     setFilters,
+    onStatusChange,
   }
 }
