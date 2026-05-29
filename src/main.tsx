@@ -7,4 +7,4 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />
   </StrictMode>,
-)
+) // прекрасний компонент, зразу видно, що новачок не торкався
