@@ -15,6 +15,7 @@ export function useFilters({
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS)
 
   const onStatusChange = (newStatus: Filters['status']) => {
+    setFilters({ status: newStatus })
     if (newStatus) {
       const filtered = tasks.filter((task) => task.status === newStatus)
       setFilteredTasks(filtered)
